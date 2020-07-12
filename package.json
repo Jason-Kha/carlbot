@@ -1,0 +1,22 @@
+{
+  "name": "carlbot",
+  "version": "1.0.0",
+  "description": "Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "author": "Jason Kha",
+  "license": "MIT",
+  "dependencies": {
+    "ascii-table": "0.0.9",
+    "config": "^3.3.1",
+    "discord.js": "^12.2.0",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.9.21",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
