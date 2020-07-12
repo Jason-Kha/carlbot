@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const Currency = require('../../models/currency');
+const config = require('config');
 
 module.exports = {
     name: 'coins',
@@ -16,7 +17,7 @@ module.exports = {
                     const embedCoins = new MessageEmbed()
                         .setColor("GREEN")
                         .setTitle(':moneybag: Super Deluxe Cheese Coins')
-                        .setDescription(`You have **0** Super Deluxe Cheese Coins! Type !daily to collect!`)
+                        .setDescription(`You have **0** Super Deluxe Cheese Coins! Type ${config.get('prefix')} to collect!`)
                         .setFooter(client.user.username, client.user.displayAvatarURL())
                         .setTimestamp();
                     message.channel.send(embedCoins);

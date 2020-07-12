@@ -35,7 +35,7 @@ client.on('ready', () => {
 
 // handle messages
 client.on('message', async message => {
-    const prefix = '!';
+    const prefix = config.get('prefix');
 
     // ignore bot messages
     if (message.author.bot) return;
