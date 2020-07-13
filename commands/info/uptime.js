@@ -1,4 +1,4 @@
-const { formatDate, formatTime } = require('../../functions.js')
+const { formatDate, formatTime } = require('../../functions.js');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {

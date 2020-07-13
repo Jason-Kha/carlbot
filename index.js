@@ -44,10 +44,10 @@ client.on('message', async message => {
     if (!message.guild) return;
 
     // cool letter
-    if (message.content.toLowerCase().trim().split(/ +/g).includes('g')) message.react('👍');
+    if (message.content.toLowerCase() === 'g') message.react('👍');
 
     // dumb letters
-    if (message.content.toLowerCase().trim().split(/ +/g).includes('h') || message.content.toLowerCase().trim().split(/ +/g).includes('ñ')) message.react('👎');
+    if (message.content.toLowerCase() === 'h' || message.content.toLowerCase() === 'ñ') message.react('👎');
 
     // ignore messages not starting with the prefix
     if (!message.content.startsWith(prefix)) return;
