@@ -15,7 +15,7 @@ module.exports = {
                 // check to see if the user is in the database
                 if (!user) {
                     const embedCoins = new MessageEmbed()
-                        .setColor("GREEN")
+                        .setColor('GREEN')
                         .setTitle(':moneybag: Super Deluxe Cheese Coins')
                         .setDescription(`You have **0** Super Deluxe Cheese Coins! Type ${config.get('prefix')}daily to collect!`)
                         .setFooter(client.user.username, client.user.displayAvatarURL())
@@ -23,7 +23,7 @@ module.exports = {
                     message.channel.send(embedCoins);
                 } else {
                     const embedCoins = new MessageEmbed()
-                        .setColor("GREEN")
+                        .setColor('GREEN')
                         .setTitle(':moneybag: Super Deluxe Cheese Coins')
                         .setDescription(`You have **${user.balance}** Super Deluxe Cheese Coins!`)
                         .setFooter(client.user.username, client.user.displayAvatarURL())
@@ -34,7 +34,7 @@ module.exports = {
                 console.error(err.message);
                 
                 const embedErr = new MessageEmbed()
-                    .setColor("RED")
+                    .setColor('RED')
                     .setTitle(':no_entry_sign: Error')
                     .setDescription(`Something went wrong, try again later!`)
                     .setFooter(client.user.username, client.user.displayAvatarURL())
