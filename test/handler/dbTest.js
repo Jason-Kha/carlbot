@@ -4,16 +4,6 @@ const Currency = require('../../models/currency.js');
 const mongoose = require('mongoose');
 
 describe('MongoDB', function() {
-    describe('Connection', function() {
-        it ('should be able to connect to database', function() {
-            assert(connectDB(), true);
-        });
-
-        it ('should be able to disconnect from database', function() {
-            mongoose.connection.close();
-        });
-    });
-    
     describe('CRUD', function() {
         this.timeout(10000);
         before ((done) => {
