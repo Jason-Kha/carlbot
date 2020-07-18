@@ -6,7 +6,7 @@ module.exports = {
     name: 'watch2gether',
     aliases: ['w2', 'wt', 'watch'],
     category: 'fun',
-    description: 'Set up a Watch2gether room',
+    description: 'Set up a Watch2Gether room',
     usage: '[url]',
     run: async (client, message, args) => {
         if (args.length > 1) {
