@@ -19,11 +19,11 @@ function covidReport(client, message, args, msg) {
     const Http = new XMLHttpRequest();
 
     // get covid data
-    Http.open("GET", "https://covid19api.io/api/v1/AllReports");
+    Http.open('GET', 'https://covid19api.io/api/v1/AllReports');
     Http.send();
     Http.onreadystatechange = function() {
 
-        json = Http.responseText;
+        var json = Http.responseText;
         
         // check status of request
         if (this.readyState == 4 && this.status == 200) {
@@ -39,8 +39,8 @@ function covidReport(client, message, args, msg) {
 
                     const newData = data.reports;
 
-                    cases = newData[0]["table"][0].sort((countryA, countryB) => {
-                        return parseInt(countryB["TotalCases"].replace(/,/g,"")) - parseInt(countryA["TotalCases"].replace(/,/g,""));
+                    cases = newData[0]['table'][0].sort((countryA, countryB) => {
+                        return parseInt(countryB['TotalCases'].replace(/,/g,'')) - parseInt(countryA['TotalCases'].replace(/,/g,''));
                     });
                     
                     // add total row
@@ -65,7 +65,7 @@ function covidReport(client, message, args, msg) {
               
             } catch(err) {
                 console.error(err.message);
-                message.channel.send("An error has occured!");
+                message.channel.send('An error has occured!');
             }
         }
     }
