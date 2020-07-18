@@ -51,8 +51,8 @@ function getCMD(client, message, input) {
     if (cmd.aliases) info += `\n**Aliases**: ${cmd.aliases.map(a => `\`${a}\``).join(', ')}`;
     if (cmd.description) info += `\n**Description**: ${cmd.description}`;
     if (cmd.usage) {
-        info += `\n**Usage**: ${cmd.usage}`;
-        embed.setFooter(`Syntax: <> = required, [] = optional `);
+        info += `\n**Usage**: ${cmd.usage}\n**Syntax**: <> = required, [] = optional`;
+        embed.setFooter(client.user.username, client.user.displayAvatarURL());
     }
     
     return message.channel.send(embed.setColor('GREEN').setDescription(info));
