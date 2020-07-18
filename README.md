@@ -10,6 +10,17 @@ Use the package manager [npm](https://www.npmjs.com/get-npm) to install packages
 npm i
 ```
 
+## Config
+config/default.json
+```
+{
+    "prefix": "",
+    "discordToken": "",
+    "mongoURI": "",
+    "watch2gether": ""
+}
+```
+
 ## Usage
 ```
 npm start
