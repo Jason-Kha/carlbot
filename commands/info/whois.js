@@ -19,7 +19,7 @@ module.exports = {
         // user currency
         await Currency.findOne({ userID: member.user.id }, (err, user) => {
             if (err) console.error(err.message);
-            
+
             try {
                 if (user) {
                     balance = user.balance;
@@ -30,26 +30,43 @@ module.exports = {
                 console.error(err.message);
 
                 const embedErr = new MessageEmbed()
-                    .setColor("RED")
+                    .setColor('RED')
                     .setTitle(':no_entry_sign: Error')
                     .setDescription(`Something went wrong, try again later!`)
-                    .setFooter(client.user.username, client.user.displayAvatarURL())
+                    .setFooter(
+                        client.user.username,
+                        client.user.displayAvatarURL()
+                    )
                     .setTimestamp();
                 message.channel.send(embedErr);
             }
         });
-        
-        const roles = message.member.roles.cache
-            .filter(r => r.id !== message.guild.id)
-            .map(r => r)
-            .join(', ') || 'None';
-       
+
+        const roles =
+            message.member.roles.cache
+                .filter((r) => r.id !== message.guild.id)
+                .map((r) => r)
+                .join(', ') || 'None';
+
         // Embeded message
         const embed = new MessageEmbed()
             .setColor(member.displayColor)
             .addFields(
-                { name: 'Member Information', value: `**\\> Display name:** ${displayName}\n**\\> Joined on:** ${joined}\n**\\> Roles:** ${roles}\n**\\> Balance:** ${balance}`, inline: true },
-                { name: 'User Information', value: `**\\> Status:** ${member.presence.status.charAt(0).toUpperCase() + member.presence.status.slice(1)}\n**\\> Username:** ${member.user.tag}\n**\\> ID:** ${member.user.id}\n**\\> Created on:** ${created}`, inline: true }
+                {
+                    name: 'Member Information',
+                    value: `**\\> Display name:** ${displayName}\n**\\> Joined on:** ${joined}\n**\\> Roles:** ${roles}\n**\\> Balance:** ${balance}`,
+                    inline: true,
+                },
+                {
+                    name: 'User Information',
+                    value: `**\\> Status:** ${
+                        member.presence.status.charAt(0).toUpperCase() +
+                        member.presence.status.slice(1)
+                    }\n**\\> Username:** ${member.user.tag}\n**\\> ID:** ${
+                        member.user.id
+                    }\n**\\> Created on:** ${created}`,
+                    inline: true,
+                }
             )
             .setThumbnail(member.user.displayAvatarURL({ size: 4096 }))
             .setFooter(client.user.username, client.user.displayAvatarURL())
@@ -57,17 +74,37 @@ module.exports = {
 
         // Add user presence (if there are any)
         if (member.presence.activities) {
-            embed.addFields({ name: '\u200B', value: '\u200B', inline: true })
+            embed.addFields({ name: '\u200B', value: '\u200B', inline: true });
         }
 
-        if (member.presence.activities.filter(a => a.type ==='CUSTOM_STATUS').length > 0) {
-            embed.addFields( { name: 'Status', value: `**\\>** ${member.presence.activities.filter(a => a.type === 'CUSTOM_STATUS')[0].state}`,  inline: true })
+        if (
+            member.presence.activities.filter((a) => a.type === 'CUSTOM_STATUS')
+                .length > 0
+        ) {
+            embed.addFields({
+                name: 'Status',
+                value: `**\\>** ${
+                    member.presence.activities.filter(
+                        (a) => a.type === 'CUSTOM_STATUS'
+                    )[0].state
+                }`,
+                inline: true,
+            });
         }
-        
-        if (member.presence.activities.filter(a => a.type === 'PLAYING').length > 0) {
-            embed.addFields({ name:'Currently playing', value: `**\\>** ${member.presence.activities.filter(a => a.type == 'PLAYING')}`, inline: true })
+
+        if (
+            member.presence.activities.filter((a) => a.type === 'PLAYING')
+                .length > 0
+        ) {
+            embed.addFields({
+                name: 'Currently playing',
+                value: `**\\>** ${member.presence.activities.filter(
+                    (a) => a.type == 'PLAYING'
+                )}`,
+                inline: true,
+            });
         }
 
         await message.channel.send(embed);
-    }
-}
+    },
+};

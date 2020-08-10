@@ -5,16 +5,16 @@ const currencySchema = mongoose.Schema({
     userID: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     balance: {
         type: Number,
-        required: true
+        required: true,
     },
-    redemptionDate:  {
-        type : Date,
-        default: Date.now()
-    }
+    redemptionDate: {
+        type: Date,
+        default: Date.now(),
+    },
 });
 
 module.exports = mongoose.model('Currency', currencySchema);

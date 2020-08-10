@@ -7,34 +7,32 @@ const fs = require('fs');
 connectDB();
 
 const client = new Client({
-    disableEveryone: true
+    disableEveryone: true,
 });
 
 client.commands = new Collection();
 client.aliases = new Collection();
-client.categories = fs.readdirSync("./commands/");
+client.categories = fs.readdirSync('./commands/');
 
 // command setup
-['command'].forEach(handler => {
+['command'].forEach((handler) => {
     require(`./handler/${handler}`)(client);
 });
 
 // bot setup
 client.on('ready', () => {
-    console.log(
-      `Bot by Jason K.\nLogged in as ${client.user.id}`
-    );
+    console.log(`Bot by Jason K.\nLogged in as ${client.user.id}`);
 
     client.user.setPresence({
         activity: {
-          name: 'Alpaca Blaster 2000'
+            name: 'Alpaca Blaster 2000',
         },
-        status: 'online'
-      });
+        status: 'online',
+    });
 });
 
 // handle messages
-client.on('message', async message => {
+client.on('message', async (message) => {
     const prefix = config.get('prefix');
 
     // ignore bot messages
@@ -47,12 +45,17 @@ client.on('message', async message => {
     if (message.content.toLowerCase() === 'g') message.react('👍');
 
     // dumb letters
-    if (message.content.toLowerCase() === 'h' || message.content.toLowerCase() === 'ñ') message.react('👎');
+    if (
+        message.content.toLowerCase() === 'h' ||
+        message.content.toLowerCase() === 'ñ'
+    )
+        message.react('👎');
 
     // ignore messages not starting with the prefix
     if (!message.content.startsWith(prefix)) return;
 
-    if (!message.member) message.member = await message.guild.fetchMember(message);
+    if (!message.member)
+        message.member = await message.guild.fetchMember(message);
 
     // output if command
     console.log(`${message.author.username} said ${message.content}`);
@@ -65,8 +68,8 @@ client.on('message', async message => {
 
     if (cmd.length === 0) return;
 
-    let command = client.commands.get(cmd)
-        if (!command) command = client.commands.get(client.aliases.get(cmd));
+    let command = client.commands.get(cmd);
+    if (!command) command = client.commands.get(client.aliases.get(cmd));
 
     if (command) command.run(client, message, args);
     else {
@@ -82,7 +85,9 @@ client.on('message', async message => {
 
 // give new user role upon joining
 client.on('guildMemberAdd', (guildMember) => {
-    guildMember.roles.add(guildMember.guild.roles.cache.find(role => role.name === 'Dinos'));
+    guildMember.roles.add(
+        guildMember.guild.roles.cache.find((role) => role.name === 'Dinos')
+    );
 });
 
 // discord login

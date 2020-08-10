@@ -13,7 +13,9 @@ module.exports = {
             const embedErr = new MessageEmbed()
                 .setColor('RED')
                 .setTitle(':no_entry_sign: Too many arguments')
-                .setDescription(`Usage: ${config.get('prefix')}watch2gether [url]`)
+                .setDescription(
+                    `Usage: ${config.get('prefix')}watch2gether [url]`
+                )
                 .setFooter(client.user.username, client.user.displayAvatarURL())
                 .setTimestamp();
             return message.channel.send(embedErr);
@@ -27,7 +29,10 @@ module.exports = {
 
         // create POST request
         Http.open('POST', url, true);
-        Http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        Http.setRequestHeader(
+            'Content-Type',
+            'application/x-www-form-urlencoded'
+        );
         Http.onload = function () {
             if (this.readyState === this.DONE) {
                 if (this.status === 200) {
@@ -38,21 +43,35 @@ module.exports = {
                     const embed = new MessageEmbed()
                         .setColor('YELLOW')
                         .setTitle('Watch2gether')
-                        .setURL(`https://www.watch2gether.com/rooms/${streamkey}`)
-                        .setDescription(`Watch2Gether lets you watch videos with your friends, synchronized at the same time.\n\nhttps://www.watch2gether.com/rooms/${streamkey}`)
-                        .setThumbnail('https://www.watch2gether.com/static/watch2gether-share.jpg')
-                        .setFooter(client.user.username, client.user.displayAvatarURL())
+                        .setURL(
+                            `https://www.watch2gether.com/rooms/${streamkey}`
+                        )
+                        .setDescription(
+                            `Watch2Gether lets you watch videos with your friends, synchronized at the same time.\n\nhttps://www.watch2gether.com/rooms/${streamkey}`
+                        )
+                        .setThumbnail(
+                            'https://www.watch2gether.com/static/watch2gether-share.jpg'
+                        )
+                        .setFooter(
+                            client.user.username,
+                            client.user.displayAvatarURL()
+                        )
                         .setTimestamp();
-                    
+
                     message.channel.send(embed);
                 } else {
                     const embedErr = new MessageEmbed()
                         .setColor('RED')
                         .setTitle(':no_entry_sign: Error')
-                        .setDescription('Something went wrong, try again later!')
-                        .setFooter(client.user.username, client.user.displayAvatarURL())
+                        .setDescription(
+                            'Something went wrong, try again later!'
+                        )
+                        .setFooter(
+                            client.user.username,
+                            client.user.displayAvatarURL()
+                        )
                         .setTimestamp();
-                    
+
                     message.channel.send(embedErr);
                 }
             }
@@ -65,5 +84,5 @@ module.exports = {
             const share = args[0];
             Http.send(`api_key=${config.get('watch2gether')}&share=${share}`);
         }
-    }
-}
+    },
+};
