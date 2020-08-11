@@ -25,6 +25,19 @@ config/default.json
 }
 ```
 
+<br />
+or<br />
+<br />
+
+.env
+
+```
+PREFIX=
+DISCORDTOKEN=
+MONGOURI=
+WATCH2GETHER=
+```
+
 ## Usage
 
 ```
