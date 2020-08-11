@@ -2,6 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const Currency = require('../../models/currency');
 const config = require('config');
 
+require('dotenv').config();
+
 module.exports = {
     name: 'coins',
     aliases: ['coin', 'sdcc', 'money'],
@@ -21,8 +23,7 @@ module.exports = {
                             .setTitle(':moneybag: Super Deluxe Cheese Coins')
                             .setDescription(
                                 `You have **0** Super Deluxe Cheese Coins! Type ${
-                                    config.util.getEnv('PREFIX') ||
-                                    config.get('prefix')
+                                    process.env.PREFIX || config.get('prefix')
                                 }daily to collect!`
                             )
                             .setFooter(

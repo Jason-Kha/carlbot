@@ -2,6 +2,8 @@ const config = require('config');
 const { MessageEmbed } = require('discord.js');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
+require('dotenv').config();
+
 module.exports = {
     name: 'watch2gether',
     aliases: ['w2', 'wt', 'watch'],
@@ -15,7 +17,7 @@ module.exports = {
                 .setTitle(':no_entry_sign: Too many arguments')
                 .setDescription(
                     `Usage: ${
-                        config.util.getEnv('PREFIX') || config.get('prefix')
+                        process.env.PREFIX || config.get('prefix')
                     }watch2gether [url]`
                 )
                 .setFooter(client.user.username, client.user.displayAvatarURL())
@@ -79,8 +81,7 @@ module.exports = {
             }
         };
 
-        var api_key =
-            config.util.getEnv('WATCH2GETHER') || config.get('watch2gether');
+        var api_key = process.env.WATCH2GETHER || config.get('watch2gether');
 
         // send parameters
         if (args === null) {

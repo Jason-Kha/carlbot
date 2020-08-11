@@ -3,6 +3,8 @@ const connectDB = require('./handler/db');
 const config = require('config');
 const fs = require('fs');
 
+require('dotenv').config();
+
 // connect DB
 connectDB();
 
@@ -33,7 +35,7 @@ client.on('ready', () => {
 
 // handle messages
 client.on('message', async (message) => {
-    const prefix = config.util.getEnv('PREFIX') || config.get('prefix');
+    const prefix = process.env.PREFIX || config.get('prefix');
 
     // ignore bot messages
     if (message.author.bot) return;
@@ -91,4 +93,4 @@ client.on('guildMemberAdd', (guildMember) => {
 });
 
 // discord login
-client.login(config.util.getEnv('DISCORDTOKEN') || config.get('discordToken'));
+client.login(process.env.DISCORDTOKEN || config.get('discordToken'));
