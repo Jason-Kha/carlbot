@@ -11,13 +11,13 @@ module.exports = {
 
         const embed = new MessageEmbed()
             .setTitle(`Added to ${role.name}`)
-            .setDescription(`You have been removed from the ${role} role!`)
+            .setDescription(`You have been added to the ${role} role!`)
             .setFooter(client.user.username, client.user.displayAvatarURL())
             .setTimestamp();
 
         const embedRemoved = new MessageEmbed()
             .setTitle(`Removed from ${role.name}`)
-            .setDescription(`You have been added to the ${role} role!`)
+            .setDescription(`You have been removed from the ${role} role!`)
             .setFooter(client.user.username, client.user.displayAvatarURL())
             .setTimestamp();
 
