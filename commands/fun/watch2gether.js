@@ -15,7 +15,7 @@ module.exports = {
                 .setTitle(':no_entry_sign: Too many arguments')
                 .setDescription(
                     `Usage: ${
-                        config.util.getEnv('prefix') || config.get('prefix')
+                        config.util.getEnv('PREFIX') || config.get('prefix')
                     }watch2gether [url]`
                 )
                 .setFooter(client.user.username, client.user.displayAvatarURL())
@@ -80,7 +80,7 @@ module.exports = {
         };
 
         var api_key =
-            config.util.getEnv('watch2gether') || config.get('watch2gether');
+            config.util.getEnv('WATCH2GETHER') || config.get('watch2gether');
 
         // send parameters
         if (args === null) {

@@ -21,7 +21,7 @@ module.exports = {
                             .setTitle(':moneybag: Super Deluxe Cheese Coins')
                             .setDescription(
                                 `You have **0** Super Deluxe Cheese Coins! Type ${
-                                    config.util.getEnv('prefix') ||
+                                    config.util.getEnv('PREFIX') ||
                                     config.get('prefix')
                                 }daily to collect!`
                             )
