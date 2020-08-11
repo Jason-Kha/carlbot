@@ -33,7 +33,7 @@ client.on('ready', () => {
 
 // handle messages
 client.on('message', async (message) => {
-    const prefix = config.get('prefix') || config.util.getEnv('prefix');
+    const prefix = config.util.getEnv('prefix') || config.get('prefix');
 
     // ignore bot messages
     if (message.author.bot) return;
@@ -91,4 +91,4 @@ client.on('guildMemberAdd', (guildMember) => {
 });
 
 // discord login
-client.login(config.get('discordToken') || config.util.getEnv('discordToken'));
+client.login(config.util.getEnv('discordToken') || config.get('discordToken'));
