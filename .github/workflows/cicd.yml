@@ -32,3 +32,4 @@ jobs:
                   npm ci
                   npm test
                   echo $PREFIX
+                  echo $PREFIX
