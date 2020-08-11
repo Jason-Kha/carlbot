@@ -20,9 +20,10 @@ module.exports = {
                             .setColor('GREEN')
                             .setTitle(':moneybag: Super Deluxe Cheese Coins')
                             .setDescription(
-                                `You have **0** Super Deluxe Cheese Coins! Type ${config.get(
-                                    'prefix'
-                                )}daily to collect!`
+                                `You have **0** Super Deluxe Cheese Coins! Type ${
+                                    config.get('prefix') ||
+                                    config.util.getEnv('prefix')
+                                }daily to collect!`
                             )
                             .setFooter(
                                 client.user.username,

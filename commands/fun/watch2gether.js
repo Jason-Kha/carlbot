@@ -14,7 +14,9 @@ module.exports = {
                 .setColor('RED')
                 .setTitle(':no_entry_sign: Too many arguments')
                 .setDescription(
-                    `Usage: ${config.get('prefix')}watch2gether [url]`
+                    `Usage: ${
+                        config.get('prefix') || config.util.getEnv('prefix')
+                    }watch2gether [url]`
                 )
                 .setFooter(client.user.username, client.user.displayAvatarURL())
                 .setTimestamp();
@@ -77,12 +79,15 @@ module.exports = {
             }
         };
 
+        var api_key =
+            config.get('watch2gether') || config.util.getEnv('watch2gether');
+
         // send parameters
         if (args === null) {
-            Http.send(`api_key=${config.get('watch2gether')}`);
+            Http.send(`api_key=${api_key}`);
         } else {
             const share = args[0];
-            Http.send(`api_key=${config.get('watch2gether')}&share=${share}`);
+            Http.send(`api_key=${api_key}&share=${share}`);
         }
     },
 };
