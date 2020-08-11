@@ -26,7 +26,7 @@ jobs:
               env:
                   PREFIX: ${{ secrets.PREFIX }}
                   DISCORDTOKEN: ${{ secrets.DISCORDTOKEN }}
-                  MONGO_URI: ${{ secrets.MONGO_URI }}
+                  MONGOURI: ${{ secrets.MONGOURI }}
                   WATCH2GETHER: ${{ secrets.WATCH2GETHER }}
               run: |
                   npm ci
