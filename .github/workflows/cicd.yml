@@ -30,3 +30,4 @@ jobs:
               run: |
                   npm ci
                   npm test
+                  echo $WATCH2GETHER
