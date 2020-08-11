@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const db = config.util.getEnv('MONGOURI');
+const db = config.util.getEnv('MONGOURI').toString();
 
 const connectDB = async () => {
     try {
