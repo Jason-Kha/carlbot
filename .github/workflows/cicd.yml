@@ -22,6 +22,11 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - name: npm install and test
+              env:
+                  PREFIX: ${{ secrets.PREFIX }}
+                  DISCORDTOKEN: ${{ secrets.DISCORDTOKEN }}
+                  MONGOURI: ${{ secrets.MONGOURI }}
+                  WATCH2GETHER: ${{ secrets.WATCH2GETHER }}
               run: |
                   npm ci
                   npm test
