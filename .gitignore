@@ -3,6 +3,7 @@
 
 # Config settings
 config/default.json
+.env
 
 ### Node ###
 # Logs
