@@ -6,7 +6,7 @@ require('dotenv').config();
 
 module.exports = {
     name: 'coins',
-    aliases: ['coin', 'sdcc', 'money'],
+    aliases: ['coin', 'sdcc', 'money', 'balance'],
     category: 'currency',
     description: 'Display current amount of Super Deluxe Cheese Coins',
     run: async (client, message, args) => {
@@ -64,5 +64,5 @@ module.exports = {
                 }
             }
         );
-    },
+    }
 };
