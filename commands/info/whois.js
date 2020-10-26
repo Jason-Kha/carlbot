@@ -43,7 +43,7 @@ module.exports = {
         });
 
         const roles =
-            message.member.roles.cache
+            member.roles.cache
                 .filter((r) => r.id !== message.guild.id)
                 .map((r) => r)
                 .join(', ') || 'None';
@@ -55,7 +55,7 @@ module.exports = {
                 {
                     name: 'Member Information',
                     value: `**\\> Display name:** ${displayName}\n**\\> Joined on:** ${joined}\n**\\> Roles:** ${roles}\n**\\> Balance:** ${balance}`,
-                    inline: true,
+                    inline: true
                 },
                 {
                     name: 'User Information',
@@ -65,7 +65,7 @@ module.exports = {
                     }\n**\\> Username:** ${member.user.tag}\n**\\> ID:** ${
                         member.user.id
                     }\n**\\> Created on:** ${created}`,
-                    inline: true,
+                    inline: true
                 }
             )
             .setThumbnail(member.user.displayAvatarURL({ size: 4096 }))
@@ -88,7 +88,7 @@ module.exports = {
                         (a) => a.type === 'CUSTOM_STATUS'
                     )[0].state
                 }`,
-                inline: true,
+                inline: true
             });
         }
 
@@ -101,10 +101,10 @@ module.exports = {
                 value: `**\\>** ${member.presence.activities.filter(
                     (a) => a.type == 'PLAYING'
                 )}`,
-                inline: true,
+                inline: true
             });
         }
 
         await message.channel.send(embed);
-    },
+    }
 };
