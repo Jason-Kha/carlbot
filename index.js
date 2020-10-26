@@ -9,7 +9,7 @@ require('dotenv').config();
 connectDB();
 
 const client = new Client({
-    disableEveryone: true,
+    disableEveryone: true
 });
 
 client.commands = new Collection();
@@ -27,9 +27,9 @@ client.on('ready', () => {
 
     client.user.setPresence({
         activity: {
-            name: 'Alpaca Blaster 2000',
+            name: 'Alpaca Blaster 2000'
         },
-        status: 'online',
+        status: 'online'
     });
 });
 
@@ -74,15 +74,6 @@ client.on('message', async (message) => {
     if (!command) command = client.commands.get(client.aliases.get(cmd));
 
     if (command) command.run(client, message, args);
-    else {
-        const embed = new MessageEmbed()
-            .setColor('RED')
-            .setTitle(':no_entry_sign: Invalid command')
-            .setDescription(`Type **${prefix}help** for more information.`)
-            .setFooter(client.user.username, client.user.displayAvatarURL())
-            .setTimestamp();
-        message.channel.send(embed);
-    }
 });
 
 // give new user role upon joining
