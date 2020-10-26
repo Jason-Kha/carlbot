@@ -29,7 +29,7 @@ module.exports = {
         return new Intl.DateTimeFormat('default', {
             hour: 'numeric',
             minute: 'numeric',
-            timezone: 'America/Chicago',
+            timezone: 'America/Chicago'
         }).format(date);
-    },
+    }
 };

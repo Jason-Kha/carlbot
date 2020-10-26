@@ -30,7 +30,7 @@ module.exports = {
                         const currency = new Currency({
                             userID: message.member.user.id,
                             balance: coinBonus,
-                            redemptionDate: Date.now(),
+                            redemptionDate: Date.now()
                         });
 
                         currency.save();
@@ -93,5 +93,5 @@ module.exports = {
                 }
             }
         );
-    },
+    }
 };

@@ -20,7 +20,7 @@ describe('MongoDB', function () {
             const user = new Currency({
                 userID: 'UserIDTest',
                 balance: 50,
-                redemptionDate: Date.now(),
+                redemptionDate: Date.now()
             });
 
             user.save().then(() => {

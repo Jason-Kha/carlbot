@@ -28,7 +28,7 @@ module.exports = {
             amsterdam: ':flag_nl: Amsterdam',
             hongkong: ':flag_hk: Hong Kong',
             russia: ':flag_ru: Russia',
-            southafrica: ':flag_za:  South Africa',
+            southafrica: ':flag_za:  South Africa'
         };
 
         const embed = new MessageEmbed()
@@ -61,5 +61,5 @@ module.exports = {
             .setTimestamp();
 
         await message.channel.send(embed);
-    },
+    }
 };

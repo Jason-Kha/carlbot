@@ -17,5 +17,5 @@ module.exports = {
 
         msg.delete();
         message.channel.send(embed);
-    },
+    }
 };

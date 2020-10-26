@@ -49,7 +49,7 @@ module.exports = {
                         var list = new Object();
                         list = {
                             username: username,
-                            balance: balance,
+                            balance: balance
                         };
 
                         table.addRow(i + 1, username, balance);
@@ -93,5 +93,5 @@ module.exports = {
         })
             .sort({ balance: -1 })
             .limit(10);
-    },
+    }
 };

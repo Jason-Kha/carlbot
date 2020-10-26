@@ -12,7 +12,7 @@ module.exports = {
         } else {
             return getAll(client, message);
         }
-    },
+    }
 };
 
 function getAll(client, message) {

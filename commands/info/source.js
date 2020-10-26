@@ -19,5 +19,5 @@ module.exports = {
             .setTimestamp();
 
         await message.channel.send(embed);
-    },
+    }
 };
