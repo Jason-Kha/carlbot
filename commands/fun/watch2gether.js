@@ -85,10 +85,10 @@ module.exports = {
 
         // send parameters
         if (args === null) {
-            Http.send(`api_key=${api_key}`);
+            Http.send(`w2g_api_key=${api_key}&bg_color=#000000`);
         } else {
             const share = args[0];
-            Http.send(`api_key=${api_key}&share=${share}`);
+            Http.send(`w2g_api_key=${api_key}&share=${share}&bg_color=#000000`);
         }
-    },
+    }
 };
