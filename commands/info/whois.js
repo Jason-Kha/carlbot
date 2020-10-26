@@ -84,9 +84,20 @@ module.exports = {
             embed.addFields({
                 name: 'Status',
                 value: `**\\>** ${
-                    member.presence.activities.filter(
+                    (member.presence.activities.filter(
+                        (a) => a.type === 'CUSTOM_STATUS'
+                    )[0].emoji
+                        ? member.presence.activities.filter(
+                              (a) => a.type === 'CUSTOM_STATUS'
+                          )[0].emoji.name + ' '
+                        : '') +
+                    (member.presence.activities.filter(
                         (a) => a.type === 'CUSTOM_STATUS'
                     )[0].state
+                        ? member.presence.activities.filter(
+                              (a) => a.type === 'CUSTOM_STATUS'
+                          )[0].state
+                        : '')
                 }`,
                 inline: true
             });
