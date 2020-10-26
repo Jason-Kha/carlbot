@@ -11,7 +11,7 @@ module.exports = {
     run: async (client, message, args) => {
         const msg = await message.channel.send(`Generating Covid-19 Report...`);
         covidReport(client, message, args, msg);
-    },
+    }
 };
 
 function covidReport(client, message, args, msg) {
@@ -19,7 +19,7 @@ function covidReport(client, message, args, msg) {
     const Http = new XMLHttpRequest();
 
     // get covid data
-    Http.open('GET', 'https://covid19api.io/api/v1/AllReports');
+    Http.open('GET', 'https://api.covid19api.com/summary');
     Http.send();
     Http.onreadystatechange = function () {
         var json = Http.responseText;
@@ -46,54 +46,50 @@ function covidReport(client, message, args, msg) {
                             'Recovered'
                         );
 
-                    const newData = data.reports;
+                    cases = data.Countries.sort((countryA, countryB) => {
+                        return (
+                            parseInt(countryB['TotalConfirmed']) -
+                            parseInt(countryA['TotalConfirmed'])
+                        );
+                    });
 
-                    cases = newData[0]['table'][0].sort(
-                        (countryA, countryB) => {
-                            return (
-                                parseInt(
-                                    countryB['TotalCases'].replace(/,/g, '')
-                                ) -
-                                parseInt(
-                                    countryA['TotalCases'].replace(/,/g, '')
-                                )
-                            );
-                        }
-                    );
+                    total = data.Global;
 
                     // add total row
                     table.addRow(
                         '',
-                        cases[1]['Country'],
-                        cases[1]['TotalCases'],
-                        cases[1]['TotalDeaths'],
-                        cases[1]['TotalRecovered']
+                        'Total',
+                        total['TotalConfirmed'],
+                        total['TotalDeaths'],
+                        total['TotalRecovered']
                     );
 
                     // add next top 10 countries
-                    for (var i = 2; i < 12; i = i + 1) {
+                    for (var i = 0; i < 10; i = i + 1) {
                         table.addRow(
-                            i - 1,
-                            cases[i]['Country'],
-                            cases[i]['TotalCases'],
+                            i + 1,
+                            cases[i]['Country'].length < 16
+                                ? cases[i]['Country']
+                                : cases[i]['Country'].substring(0, 16) + '...',
+                            cases[i]['TotalConfirmed'],
                             cases[i]['TotalDeaths'],
                             cases[i]['TotalRecovered']
                         );
                     }
-                    resolve();
 
-                    const embed = new MessageEmbed()
+                    var embed = new MessageEmbed()
                         .setDescription(`\`\`\`${table.toString()}\`\`\``)
                         .setFooter(
                             client.user.username,
                             client.user.displayAvatarURL()
                         )
                         .setTimestamp();
-                    message.channel.send(embed);
+
+                    resolve(embed);
                 });
 
-                generateTable.then(() => {
-                    msg.delete();
+                generateTable.then((embed) => {
+                    msg.edit(embed);
                 });
             } catch (err) {
                 console.error(err.message);
