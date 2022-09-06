@@ -9,7 +9,7 @@ import {
 
 const CommandHandler = {
     handle: async function (interaction) {
-        console.log(interaction);
+        // console.log(interaction);
         if (interaction.isChatInputCommand()) {
             switch (interaction.commandName) {
                 case 'order':
@@ -55,21 +55,22 @@ const CommandHandler = {
                     break;
                 case 'userinfo':
                     {
+                        const user = interaction.options.get('user');
+                        console.log(user);
                         const roles =
-                            interaction.member._roles.map((i) => `<@&${i}>`).join(', ') || 'None';
+                            user.member._roles.map((i) => `<@&${i}>`).join(', ') || 'None';
                         const joined = Intl.DateTimeFormat('en-US').format(
-                            interaction.member.joinedTimestamp
+                            user.member.guild.joinedTimestamp
                         );
                         const created = Intl.DateTimeFormat('en-US').format(
-                            interaction.member.user.createdAt
+                            user.member.user.createdAt
                         );
-                        const displayName =
-                            interaction.member.nickname || interaction.member.user.username;
+                        const displayName = user.member.nickname || user.member.user.username;
                         const embed = new EmbedBuilder()
                             .setTitle(
-                                `${interaction.user.username} #${interaction.user.discriminator}`
+                                `${user.member.user.username} #${user.member.user.discriminator}`
                             )
-                            .setColor(interaction.member.displayColor)
+                            .setColor(user.member.displayColor)
                             .addFields(
                                 {
                                     name: 'Member Information',
@@ -82,15 +83,13 @@ const CommandHandler = {
                                         // interaction.member.presence.status.charAt(0).toUpperCase() +
                                         // interaction.member.presence.status.slice(1)
                                         1
-                                    }\n**\\> Username:** ${
-                                        interaction.member.user.tag
-                                    }\n**\\> ID:** ${
-                                        interaction.member.user.id
+                                    }\n**\\> Username:** ${user.member.user.tag}\n**\\> ID:** ${
+                                        user.member.user.id
                                     }\n**\\> Created on:** ${created}`,
                                     inline: true
                                 }
                             )
-                            .setThumbnail(interaction.member.user.displayAvatarURL({ size: 4096 }))
+                            .setThumbnail(user.member.user.displayAvatarURL({ size: 4096 }))
                             // .setFooter(client.user.username, client.user.displayAvatarURL())
                             .setTimestamp();
                         // console.log(interaction);
