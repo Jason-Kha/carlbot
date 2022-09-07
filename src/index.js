@@ -6,6 +6,7 @@ import { Client, Collection, GatewayIntentBits } from 'discord.js';
 
 import { config } from 'dotenv';
 
+// directory setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -24,14 +25,15 @@ const client = new Client({
     ]
 });
 
+// command setup
 client.commands = new Collection();
 const commandsPath = join(__dirname, 'commands');
 const commandFiles = readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
 
+// command files
 for (const file of commandFiles) {
     const filePath = join(commandsPath, file);
     const command = await import(filePath);
-    console.log(command.default.data.name);
     client.commands.set(command.default.data.name, command);
 }
 
@@ -57,4 +59,5 @@ client.on('interactionCreate', async (interaction) => {
     }
 });
 
+// login
 client.login(DISCORD_TOKEN);
