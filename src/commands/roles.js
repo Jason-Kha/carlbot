@@ -1,10 +1,22 @@
 import { SlashCommandBuilder } from 'discord.js';
 
-const roleCommand = new SlashCommandBuilder()
-    .setName('addrole')
-    .setDescription('Add a role')
-    .addRoleOption((option) =>
-        option.setName('newrole').setDescription('Add a new role').setRequired(true)
-    );
-
-export default roleCommand.toJSON();
+export default {
+    data: new SlashCommandBuilder()
+        .setName('roles')
+        .setDescription('Get more information about a user.')
+        .addRoleOption((option) => option.setName('role').setDescription('role').setRequired(true)),
+    async execute(interaction) {
+        const modal = new ModalBuilder()
+            .setTitle('Register User Form')
+            .setCustomId('registerUserID')
+            .setComponents(
+                new ActionRowBuilder().setComponents(
+                    new TextInputBuilder()
+                        .setLabel('Username')
+                        .setCustomId('username')
+                        .setStyle(TextInputStyle.Short)
+                )
+            );
+        await interaction.showModal(modal);
+    }
+};

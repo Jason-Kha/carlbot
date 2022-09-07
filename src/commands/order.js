@@ -1,39 +1,30 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { ActionRowBuilder, SelectMenuBuilder, SlashCommandBuilder } from 'discord.js';
 
-const orderCommand = new SlashCommandBuilder()
-    .setName('order')
-    .setDescription('Order your favorite Meal');
-// .addStringOption((option) =>
-//     option
-//         .setName('food')
-//         .setDescription('Select your favorite food')
-//         .setRequired(true)
-//         .setChoices(
-//             {
-//                 name: 'cake',
-//                 value: 'cake'
-//             },
-//             {
-//                 name: 'handburger',
-//                 value: 'hand burg'
-//             }
-//         )
-// )
-// .addStringOption((option) =>
-//     option
-//         .setName('drink')
-//         .setDescription('Select your favorite drink')
-//         .setRequired(true)
-//         .setChoices(
-//             {
-//                 name: 'water',
-//                 value: 'water'
-//             },
-//             {
-//                 name: 'cola',
-//                 value: 'cola'
-//             }
-//         )
-// );
+export default {
+    data: new SlashCommandBuilder().setName('order').setDescription('Order your favorite Meal'),
+    async execute(interaction) {
+        console.log('Order Command');
+        console.log(interaction.commandName);
 
-export default orderCommand.toJSON();
+        const actionRowFoodComponent = new ActionRowBuilder().setComponents(
+            new SelectMenuBuilder().setCustomId('food_options').setOptions([
+                { label: 'Hands', value: 'hands' },
+                { label: 'Feet', value: 'feet' }
+            ])
+        );
+        /*
+                        const actionRowDrinkComponent = new ActionRowBuilder().setComponents(
+                            new SelectMenuBuilder().setCustomId('drink_options').setOptions([
+                                { label: 'Water', value: 'water' },
+                                { label: 'Sea water', value: 'seawater' }
+                            ])
+                        );
+                        */
+        await interaction.reply({
+            components: [
+                actionRowFoodComponent.toJSON()
+                //actionRowDrinkComponent.toJSON()
+            ]
+        });
+    }
+};
