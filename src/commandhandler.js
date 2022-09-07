@@ -19,20 +19,22 @@ const CommandHandler = {
 
                         const actionRowFoodComponent = new ActionRowBuilder().setComponents(
                             new SelectMenuBuilder().setCustomId('food_options').setOptions([
-                                { label: 'Cake', value: 'cake' },
-                                { label: 'Pizza', value: 'pizza' }
+                                { label: 'Hands', value: 'hands' },
+                                { label: 'Feet', value: 'feet' }
                             ])
                         );
+                        /*
                         const actionRowDrinkComponent = new ActionRowBuilder().setComponents(
                             new SelectMenuBuilder().setCustomId('drink_options').setOptions([
                                 { label: 'Water', value: 'water' },
-                                { label: 'Cola', value: 'cola' }
+                                { label: 'Sea water', value: 'seawater' }
                             ])
                         );
+                        */
                         await interaction.reply({
                             components: [
-                                actionRowFoodComponent.toJSON(),
-                                actionRowDrinkComponent.toJSON()
+                                actionRowFoodComponent.toJSON()
+                                //actionRowDrinkComponent.toJSON()
                             ]
                         });
                     }
@@ -80,8 +82,8 @@ const CommandHandler = {
                                 {
                                     name: 'User Information',
                                     value: `**\\> Status:** ${
-                                        // interaction.member.presence.status.charAt(0).toUpperCase() +
-                                        // interaction.member.presence.status.slice(1)
+                                        // user.member.presence.status.charAt(0).toUpperCase() +
+                                        // user.member.presence.status.slice(1)
                                         1
                                     }\n**\\> Username:** ${user.member.user.tag}\n**\\> ID:** ${
                                         user.member.user.id
