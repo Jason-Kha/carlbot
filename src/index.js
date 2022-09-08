@@ -20,6 +20,7 @@ const GUILD_ID = process.env.GUILD_ID;
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent
     ]
@@ -53,26 +54,6 @@ for (const file of eventFiles) {
         client.on(event.default.name, (...args) => event.default.execute(...args, client));
     }
 }
-
-/*
-client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isChatInputCommand()) return;
-
-    const command = client.commands.get(interaction.commandName);
-
-    if (!command) return;
-
-    try {
-        await command.default.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.reply({
-            content: 'There was an error while executing this command!',
-            ephemeral: true
-        });
-    }
-});
-*/
 
 // login
 client.login(DISCORD_TOKEN);
