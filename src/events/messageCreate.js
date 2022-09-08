@@ -7,5 +7,6 @@ export default {
         if (content.toLowerCase().includes('gamer') && !message.author.bot) {
             await message.reply('gamer');
         }
+        return;
     }
 };

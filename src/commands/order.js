@@ -31,6 +31,7 @@ export default {
             components: [actionRowFoodComponent.toJSON(), actionRowDrinkComponent.toJSON()],
             ephemeral: true
         });
+        return;
     },
     async response(interaction) {
         // delete replies
@@ -48,5 +49,6 @@ export default {
                 break;
             }
         }
+        return;
     }
 };

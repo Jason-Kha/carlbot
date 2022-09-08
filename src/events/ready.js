@@ -11,5 +11,6 @@ export default {
             activities: [{ name: 'eating hands', type: ActivityType.Competing }],
             status: 'online'
         });
+        return;
     }
 };

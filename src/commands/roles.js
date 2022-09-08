@@ -24,6 +24,7 @@ export default {
                 )
             );
         await interaction.showModal(modal);
+        return;
     },
     async response(interaction) {
         return;
