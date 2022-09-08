@@ -1,10 +1,4 @@
-import {
-    ActionRowBuilder,
-    ModalBuilder,
-    SlashCommandBuilder,
-    TextInputBuilder,
-    TextInputStyle
-} from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -25,7 +19,9 @@ export default {
         const roll = Math.floor(Math.random() * sides) + 1;
 
         // reply with roll
-        await interaction.reply(`You rolled a ${sides}-sided die and got ${roll}`);
+        await interaction.reply(
+            `${'<@' + interaction.member.user.id + '>'} rolled a ${sides}-sided die and got ${roll}`
+        );
         return;
     }
 };
