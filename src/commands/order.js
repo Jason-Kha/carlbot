@@ -12,19 +12,16 @@ export default {
                 { label: 'Feet', value: 'feet' }
             ])
         );
-        /*
-                        const actionRowDrinkComponent = new ActionRowBuilder().setComponents(
-                            new SelectMenuBuilder().setCustomId('drink_options').setOptions([
-                                { label: 'Water', value: 'water' },
-                                { label: 'Sea water', value: 'seawater' }
-                            ])
-                        );
-                        */
+
+        const actionRowDrinkComponent = new ActionRowBuilder().setComponents(
+            new SelectMenuBuilder().setCustomId('drink_options').setOptions([
+                { label: 'Water', value: 'water' },
+                { label: 'Sea water', value: 'seawater' }
+            ])
+        );
+
         await interaction.reply({
-            components: [
-                actionRowFoodComponent.toJSON()
-                //actionRowDrinkComponent.toJSON()
-            ]
+            components: [actionRowFoodComponent.toJSON(), actionRowDrinkComponent.toJSON()]
         });
     }
 };

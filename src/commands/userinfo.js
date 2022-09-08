@@ -7,14 +7,16 @@ export default {
         .addUserOption((option) =>
             option.setName('user').setDescription('user to inspect').setRequired(true)
         ),
-    async execute(interaction) {
-        console.log(interaction);
+    async execute(interaction, client) {
         const user = interaction.options.get('user');
-        console.log(user);
+
+        // user properties
         const roles = user.member._roles.map((i) => `<@&${i}>`).join(', ') || 'None';
         const joined = Intl.DateTimeFormat('en-US').format(user.member.guild.joinedTimestamp);
         const created = Intl.DateTimeFormat('en-US').format(user.member.user.createdAt);
         const displayName = user.member.nickname || user.member.user.username;
+
+        // create embed
         const embed = new EmbedBuilder()
             .setTitle(`${user.member.user.username} #${user.member.user.discriminator}`)
             .setColor(user.member.displayColor)
@@ -37,9 +39,10 @@ export default {
                 }
             )
             .setThumbnail(user.member.user.displayAvatarURL({ size: 4096 }))
-            // .setFooter(client.user.username, client.user.displayAvatarURL())
+            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() })
             .setTimestamp();
-        // console.log(interaction);
+
+        // send embed
         await interaction.reply({
             embeds: [embed]
         });

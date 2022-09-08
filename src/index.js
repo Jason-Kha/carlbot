@@ -37,10 +37,24 @@ for (const file of commandFiles) {
     client.commands.set(command.default.data.name, command);
 }
 
-client.once('ready', () => {
-    console.log('Ready!');
-});
+// event setup
+const eventsPath = join(__dirname, 'events');
+const eventFiles = readdirSync(eventsPath).filter((file) => file.endsWith('.js'));
 
+// event files
+for (const file of eventFiles) {
+    const filePath = join(eventsPath, file);
+    const event = await import(filePath);
+
+    // if one-time listener event
+    if (event.default.once) {
+        client.once(event.default.name, (...args) => event.default.execute(...args));
+    } else {
+        client.on(event.default.name, (...args) => event.default.execute(...args, client));
+    }
+}
+
+/*
 client.on('interactionCreate', async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
@@ -58,6 +72,7 @@ client.on('interactionCreate', async (interaction) => {
         });
     }
 });
+*/
 
 // login
 client.login(DISCORD_TOKEN);
