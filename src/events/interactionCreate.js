@@ -21,10 +21,12 @@ export default {
                 });
             }
             return;
+
             // SelectMenu
-        } else if (interaction.isSelectMenu) {
+        } else if (interaction.isSelectMenu() || interaction.isModalSubmit()) {
             const customId = interaction.customId.split('_')[0];
             const command = client.commands.get(customId);
+
             if (!command) return;
 
             try {
