@@ -22,7 +22,7 @@ export default {
             }
             return;
 
-            // SelectMenu
+            // SelectMenu, Modal
         } else if (interaction.isSelectMenu() || interaction.isModalSubmit()) {
             const customId = interaction.customId.split('_')[0];
             const command = client.commands.get(customId);
