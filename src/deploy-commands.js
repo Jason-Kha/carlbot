@@ -30,8 +30,19 @@ for (const file of commandFiles) {
 
 // rest
 const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
+/*
+// delete global commands
+rest.put(Routes.applicationCommands(CLIENT_ID), { body: [] })
+    .then(() => console.log('Successfully deleted all application commands.'))
+    .catch(console.error);
 
-// update commands
+// delete guild commands
+rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: [] })
+    .then(() => console.log('Successfully deleted all guild commands.'))
+    .catch(console.error);
+*/
+
+// update guild commands
 rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: commands })
     .then(() => console.log('Successfully registered application commands.'))
     .catch(console.error);
