@@ -1,4 +1,10 @@
-import { SlashCommandBuilder } from 'discord.js';
+import {
+    ActionRowBuilder,
+    ModalBuilder,
+    SlashCommandBuilder,
+    TextInputBuilder,
+    TextInputStyle
+} from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -8,7 +14,7 @@ export default {
     async execute(interaction) {
         const modal = new ModalBuilder()
             .setTitle('Register User Form')
-            .setCustomId('registerUserID')
+            .setCustomId('roles_registerUserID')
             .setComponents(
                 new ActionRowBuilder().setComponents(
                     new TextInputBuilder()
@@ -18,5 +24,8 @@ export default {
                 )
             );
         await interaction.showModal(modal);
+    },
+    async response(interaction) {
+        return;
     }
 };
