@@ -4,7 +4,7 @@ import jest from 'jest-mock';
 describe('events', () => {
     // sample data
     const message = {
-        content: 'gamer',
+        content: 'hello gamers',
         author: {
             bot: false
         },
