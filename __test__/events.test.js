@@ -1,5 +1,5 @@
 import { default as messageCreate } from '../src/events/messageCreate.js';
-import jest from 'jest-mock';
+import { jest } from '@jest/globals';
 
 describe('events', () => {
     // sample data
@@ -10,6 +10,10 @@ describe('events', () => {
         },
         reply: jest.fn()
     };
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
 
     it('should be called with reply on gamer', async () => {
         messageCreate.execute(message);
