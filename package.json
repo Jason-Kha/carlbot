@@ -4,7 +4,7 @@
     "description": "Discord Bot",
     "main": "index.js",
     "scripts": {
-        "test": "jest",
+        "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
         "dev": "nodemon ./src/index.js",
         "commands": "node ./src/deploy-commands.js"
     },
