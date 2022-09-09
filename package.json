@@ -4,7 +4,7 @@
     "description": "Discord Bot",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "dev": "nodemon ./src/index.js",
         "commands": "node ./src/deploy-commands.js"
     },
