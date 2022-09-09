@@ -8,7 +8,7 @@ export default {
 
         // set presence
         client.user.setPresence({
-            activities: [{ name: 'eating hands', type: ActivityType.Competing }],
+            activities: [{ name: 'games', type: ActivityType.Playing }],
             status: 'online'
         });
         return;

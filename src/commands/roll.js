@@ -9,7 +9,7 @@ export default {
                 .setName('sides')
                 .setDescription('Amount of sides the die has')
                 .setRequired(true)
-                .setMaxValue(10000)
+                .setMaxValue(9999999999)
         ),
     async execute(interaction) {
         // get options
