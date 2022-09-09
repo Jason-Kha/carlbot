@@ -8,7 +8,6 @@ export default {
         // gamer moment
         if (content.toLowerCase().includes('gamer')) {
             await message.reply('gamer');
-            return;
         }
 
         // letter reactions
@@ -18,7 +17,6 @@ export default {
             content.toLowerCase().split(' ').includes('h')
         ) {
             await message.react('🇬');
-            return;
         }
         return;
     }
