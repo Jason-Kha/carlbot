@@ -5,8 +5,8 @@ export default {
     data: new SlashCommandBuilder().setName('whereiscarl').setDescription('Find Carl'),
     async execute(interaction, client) {
         // get random location
-        const longitude = parseFloat((Math.random() * 360 - 180).toFixed(3)); //parseFloat((Math.random() * 180 - 90).toFixed(3));
-        const latitude = parseFloat((Math.random() * 180 - 90).toFixed(3)); // parseFloat((Math.random() * 360 - 180).toFixed(3));
+        const longitude = parseFloat((Math.random() * 360 - 180).toFixed(3));
+        const latitude = parseFloat((Math.random() * 180 - 90).toFixed(3));
         const center = [longitude, latitude];
 
         // random zoom level
