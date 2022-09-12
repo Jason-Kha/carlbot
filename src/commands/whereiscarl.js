@@ -3,47 +3,83 @@ import StaticMaps from 'staticmaps';
 
 export default {
     data: new SlashCommandBuilder().setName('whereiscarl').setDescription('Find Carl'),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // get random location
-        const longitude = (Math.random() * 360 - 180).toFixed(3);
-        const latitude = (Math.random() * 180 - 90).toFixed(3);
+        const longitude = parseFloat((Math.random() * 360 - 180).toFixed(3)); //parseFloat((Math.random() * 180 - 90).toFixed(3));
+        const latitude = parseFloat((Math.random() * 180 - 90).toFixed(3)); // parseFloat((Math.random() * 360 - 180).toFixed(3));
+        const center = [longitude, latitude];
+
+        // random zoom level
+        const zoom = Math.floor(Math.random() * 9) + 5;
 
         // map options
         const options = {
-            width: 512,
-            height: 512,
+            width: 1024,
+            height: 1024,
             tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileSubdomains: ['a', 'b', 'c'],
-            zoomRange: 13,
-            tileSize: 256,
-            tileRequestLimit: 2
+            tileRequestLimit: 5,
+            tileSize: 256
         };
 
         // create new map
         const map = new StaticMaps(options);
-        const text = {
-            coord: [longitude, latitude],
-            text: `${longitude}, ${latitude}`,
-            size: 30,
-            width: 1,
-            fill: '#0000FF',
-            color: '#0000FF',
-            font: 'Calibri',
-            anchor: 'end'
+
+        // create carl marker
+        const marker = {
+            img: `${client.user.displayAvatarURL({ size: 64 })}`,
+            offsetY: 100,
+            width: 64,
+            height: 64,
+            coord: center
         };
 
+        // text marker
+        const text = {
+            coord: center,
+            text: `Carl`,
+            size: 30,
+            width: 1,
+            offsetY: 110,
+            fill: '#ff0000',
+            color: '#ff0000',
+            font: 'Calibri',
+            anchor: 'middle'
+        };
+
+        // circle text
+        const circleText = {
+            coord: center,
+            text: `.`,
+            size: 100,
+            width: 1,
+            fill: '#ff0000',
+            color: '#ff0000',
+            font: 'Calibri',
+            anchor: 'middle'
+        };
+
+        // add to map
+        map.addMarker(marker);
         map.addText(text);
+        map.addText(circleText);
 
-        // render map
-        await map.render([longitude, latitude], 13);
+        try {
+            // render map image
+            await map.render(center, zoom);
+            const buffer = await map.image.buffer('image/jpg', { quality: 100 });
 
-        const buffer = await map.image.buffer('image/jpeg', { quality: 75 });
+            // reply with location and rendered image
+            await interaction.reply({
+                content: `I am at Latitude: ${latitude}, Longitude: ${longitude} \n<https://www.openstreetmap.org/#map=${
+                    zoom + 1
+                }/${latitude}/${longitude}>`,
+                files: [{ attachment: buffer }]
+            });
+        } catch (err) {
+            console.log(err);
+        }
 
-        // reply with location
-        await interaction.reply({
-            content: `Carl is at Longitude: ${longitude}, Latitude: ${latitude}\nhttps://www.openstreetmap.org/#map=10/${latitude}/${longitude}`,
-            files: [{ attachment: buffer }]
-        });
         return;
     }
 };
