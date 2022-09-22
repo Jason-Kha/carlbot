@@ -21,7 +21,8 @@
     "dependencies": {
         "axios": "^0.27.2",
         "discord.js": "^14.3.0",
-        "staticmaps": "^1.10.0"
+        "staticmaps": "^1.10.0",
+        "tplink-smarthome-api": "^4.2.0"
     },
     "devDependencies": {
         "dotenv": "^16.0.2",

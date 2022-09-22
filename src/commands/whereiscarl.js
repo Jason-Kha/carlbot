@@ -3,7 +3,7 @@ import StaticMaps from 'staticmaps';
 
 export default {
     data: new SlashCommandBuilder().setName('whereiscarl').setDescription('Find Carl'),
-    async execute(interaction, client) {
+    async execute(interaction) {
         // get random location
         const longitude = parseFloat((Math.random() * 360 - 180).toFixed(3)); // -180 to 180
         const latitude = parseFloat((Math.random() * 120 - 60 + 10).toFixed(3)); // -50 to 70
@@ -27,7 +27,7 @@ export default {
 
         // create carl marker
         const marker = {
-            img: `${client.user.displayAvatarURL({ size: 64 })}`,
+            img: `${interaction.client.user.displayAvatarURL({ size: 64 })}`,
             offsetY: 100,
             width: 64,
             height: 64,

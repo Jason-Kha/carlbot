@@ -4,7 +4,7 @@ export default {
         if (user.bot) return;
         // const id = '257303326184570880';
         const id = '173490982023593984';
-        console.log(messageReaction);
+        // console.log(messageReaction);
 
         // if id matches user
         if (user.id === id) {

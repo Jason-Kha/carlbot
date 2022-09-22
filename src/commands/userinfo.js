@@ -7,7 +7,7 @@ export default {
         .addUserOption((option) =>
             option.setName('user').setDescription('user to inspect').setRequired(true)
         ),
-    async execute(interaction, client) {
+    async execute(interaction) {
         const user = interaction.options.get('user');
 
         // user properties
@@ -39,7 +39,10 @@ export default {
                 }
             )
             .setThumbnail(user.member.user.displayAvatarURL({ size: 4096 }))
-            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() })
+            .setFooter({
+                text: interaction.client.user.username,
+                iconURL: interaction.client.user.displayAvatarURL()
+            })
             .setTimestamp();
 
         // send embed

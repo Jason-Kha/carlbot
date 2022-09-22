@@ -1,18 +1,18 @@
 export default {
     name: 'interactionCreate',
-    async execute(interaction, client) {
+    async execute(interaction) {
         console.log(
             `${interaction.user.tag} in #${interaction.channel.name} triggered an interaction`
         );
 
         // ChatInputCommand
         if (interaction.isChatInputCommand()) {
-            const command = client.commands.get(interaction.commandName);
+            const command = interaction.client.commands.get(interaction.commandName);
 
             if (!command) return;
 
             try {
-                await command.default.execute(interaction, client);
+                await command.default.execute(interaction);
             } catch (error) {
                 console.error(error);
                 await interaction.reply({
@@ -25,12 +25,12 @@ export default {
             // SelectMenu, Modal
         } else if (interaction.isSelectMenu() || interaction.isModalSubmit()) {
             const customId = interaction.customId.split('_')[0];
-            const command = client.commands.get(customId);
+            const command = interaction.client.commands.get(customId);
 
             if (!command) return;
 
             try {
-                await command.default.response(interaction, client);
+                await command.default.response(interaction);
             } catch (error) {
                 console.error(error);
                 await interaction.reply({
