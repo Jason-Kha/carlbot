@@ -8,7 +8,7 @@ export default {
 
         // if id matches user
         if (user.id === id) {
-            messageReaction.message.react('😎');
+            //messageReaction.message.react('😎');
         }
         return;
     }
