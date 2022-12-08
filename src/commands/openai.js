@@ -38,21 +38,12 @@ export default {
                 const textResponse = await openai.createCompletion({
                     model: 'text-davinci-003',
                     prompt: interaction.options.getString('prompt'),
-                    max_tokens: 100
+                    max_tokens: 300
                 });
                 // create embed
                 const textEmbed = new EmbedBuilder()
-                    .setTitle(`Carl AI`)
-                    .addFields({
-                        name: 'Prompt',
-                        value: `${interaction.options.getString('prompt')}`,
-                        inline: true
-                    })
-                    .addFields({
-                        name: 'Response',
-                        value: `${textResponse.data.choices[0].text}`,
-                        inline: false
-                    })
+                    .setTitle(`${interaction.options.getString('prompt')}`)
+                    .setDescription(`${textResponse.data.choices[0].text}`)
                     .setFooter({
                         text: interaction.client.user.username,
                         iconURL: interaction.client.user.displayAvatarURL()
