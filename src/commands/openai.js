@@ -1,4 +1,4 @@
-import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { AttachmentBuilder, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import axios from 'axios';
 import { config } from 'dotenv';
 import { Configuration, OpenAIApi } from 'openai';
@@ -31,7 +31,7 @@ export default {
         const openai = new OpenAIApi(configuration);
 
         // defer reply
-        await interaction.deferReply();
+        await interaction.deferReply({ ephemeral: false });
 
         switch (interaction.options.getString('type')) {
             case 'openai_text':
@@ -59,6 +59,12 @@ export default {
                     size: '512x512'
                 });
                 const imageURL = imageResponse.data.data[0].url;
+                const imageResult = await axios.get(imageURL, { responseType: 'arraybuffer' });
+                const imageBuffer = Buffer.from(imageResult.data, 'utf-8');
+                const imageAttachment = new AttachmentBuilder(imageBuffer, {
+                    name: 'openai_image.jpg'
+                });
+
                 // create embed
                 const imageEmbed = new EmbedBuilder()
                     .setTitle(`Carl AI`)
@@ -67,13 +73,16 @@ export default {
                         value: `${interaction.options.getString('prompt')}`,
                         inline: true
                     })
-                    .setImage(imageURL)
+                    .setImage(`attachment://openai_image.jpg`)
                     .setFooter({
                         text: interaction.client.user.username,
                         iconURL: interaction.client.user.displayAvatarURL()
                     })
                     .setTimestamp();
-                await interaction.editReply({ embeds: [imageEmbed] });
+                await interaction.editReply({
+                    embeds: [imageEmbed],
+                    files: [imageAttachment]
+                });
                 break;
         }
 
