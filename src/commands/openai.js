@@ -38,7 +38,7 @@ export default {
                 const textResponse = await openai.createCompletion({
                     model: 'text-davinci-003',
                     prompt: interaction.options.getString('prompt'),
-                    max_tokens: 300
+                    max_tokens: 350
                 });
                 // create embed
                 const textEmbed = new EmbedBuilder()
