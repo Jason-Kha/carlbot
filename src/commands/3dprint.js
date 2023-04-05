@@ -40,7 +40,7 @@ export default {
         });
         const buffer = Buffer.from(image.data, 'base64');
         const imageAttachment = new AttachmentBuilder(buffer, {
-            name: '3dprint.jpg'
+            name: `${fileName}.jpg`
         });
 
         // create embed
@@ -58,7 +58,7 @@ export default {
                     inline: true
                 }
             )
-            .setImage(`attachment://3dprint.jpg`)
+            .setImage(`attachment://${fileName}.jpg`)
             .setFooter({
                 text: interaction.client.user.username,
                 iconURL: interaction.client.user.displayAvatarURL()
