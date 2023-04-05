@@ -49,7 +49,7 @@ export default {
             .addFields(
                 {
                     name: 'Job Information',
-                    value: `**\\> File:** ${fileName}\n**\\> Progress:** ${progress}%\n**\\> Est. Print Time:** ${est_print_time}\n**\\> Cur. Print Time:** ${print_time}\n**\\> Time Left:** ${print_time_left}`,
+                    value: `**\\> File:** ${fileName}\n**\\> Progress (height):** ${progress}%\n**\\> Est. Print Time:** ${est_print_time}\n**\\> Cur. Print Time:** ${print_time}\n**\\> Time Left:** ${print_time_left}`,
                     inline: true
                 },
                 {
