@@ -3,8 +3,18 @@ import axios from 'axios';
 import { config } from 'dotenv';
 
 export default {
-    data: new SlashCommandBuilder().setName('3dprint').setDescription('3d print screenshot'),
+    data: new SlashCommandBuilder()
+        .setName('3dprint')
+        .setDescription('3d print screenshot')
+        .addBooleanOption((option) =>
+            option
+                .setName('visible')
+                .setDescription('Show this message to other users (default: false) [true|false]')
+        ),
     async execute(interaction) {
+        // options
+        const { options } = interaction;
+
         // dotenv setup
         config();
         const API = process.env.OCTOPRINT;
@@ -72,7 +82,8 @@ export default {
 
         await interaction.reply({
             embeds: [imageEmbed],
-            files: [imageAttachment]
+            files: [imageAttachment],
+            ephemeral: !options.getBoolean('visible')
         });
         return;
     }
