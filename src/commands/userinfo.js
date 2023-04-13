@@ -47,7 +47,8 @@ export default {
 
         // send embed
         await interaction.reply({
-            embeds: [embed]
+            embeds: [embed],
+            ephemeral: true
         });
         return;
     }
