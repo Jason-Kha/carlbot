@@ -33,6 +33,7 @@ export default {
         });
 
         const fileName = job_result.data.job.file.name;
+        const fileNameImage = fileName.replace(/ /g, '_');
         const progress = job_result.data.progress.completion.toFixed(2);
         const est_print_time = secondsToTime(job_result.data.job.estimatedPrintTime);
         const print_time = secondsToTime(job_result.data.progress.printTime);
@@ -43,7 +44,7 @@ export default {
         });
         const buffer = Buffer.from(image.data, 'base64');
         const imageAttachment = new AttachmentBuilder(buffer, {
-            name: `${fileName.replace(/ /g, '_')}.jpg`
+            name: `${fileNameImage}.jpg`
         });
 
         // create embed
@@ -61,7 +62,7 @@ export default {
                     inline: true
                 }
             )
-            .setImage(`attachment://${fileName}.jpg`)
+            .setImage(`attachment://${fileNameImage}.jpg`)
             .setFooter({
                 text: interaction.client.user.username,
                 iconURL: interaction.client.user.displayAvatarURL()
