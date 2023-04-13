@@ -18,7 +18,10 @@ export default {
         const state = print_result.data.state.flags.printing;
 
         if (!state) {
-            await interaction.reply('Nothing is being printed right now!');
+            await interaction.reply({
+                content: 'Nothing is being printed right now!',
+                ephemeral: true
+            });
             return;
         }
 
@@ -40,12 +43,12 @@ export default {
         });
         const buffer = Buffer.from(image.data, 'base64');
         const imageAttachment = new AttachmentBuilder(buffer, {
-            name: `${fileName}.jpg`
+            name: `${fileName.replace(/ /g, '_')}.jpg`
         });
 
         // create embed
         const imageEmbed = new EmbedBuilder()
-            .setTitle(`YoshPrint-3000`)
+            .setTitle(`LlamaPrint-3000`)
             .addFields(
                 {
                     name: 'Job Information',
