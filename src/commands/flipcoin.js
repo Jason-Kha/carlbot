@@ -10,7 +10,7 @@ export default {
         await interaction.reply(
             `${'<@' + interaction.member.user.id + '>'} flipped a coin and got ${
                 roll ? 'heads' : 'tails'
-            }`
+            }!`
         );
         return;
     }
