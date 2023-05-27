@@ -25,6 +25,7 @@ export default {
             headers: { 'X-Api-Key': API }
         });
 
+        // get printer state
         const state = print_result.data.state.flags.printing;
 
         if (!state) {
@@ -44,23 +45,32 @@ export default {
 
         const fileNameRaw = job_result.data.job.file.name;
         const fileName = fileNameRaw.substring(0, fileNameRaw.lastIndexOf('.'));
-        const fileNameImage = fileName.replace(/ /g, '_');
+        const fileNameScreenshot = fileName.replace(/ /g, '_');
+        const fileNameThumbnail = fileName.concat('-thumbnail');
         const progress = job_result.data.progress.completion.toFixed(2);
         const est_print_time = secondsToTime(job_result.data.job.estimatedPrintTime);
         const print_time = secondsToTime(job_result.data.progress.printTime);
         const print_time_left = secondsToTime(job_result.data.progress.printTimeLeft);
 
-        const image = await axios.get('http://192.168.1.129:3000/?action=snapshot', {
-            responseType: 'arraybuffer'
-        });
-        const buffer = Buffer.from(image.data, 'base64');
-        const imageAttachment = new AttachmentBuilder(buffer, {
-            name: `${fileNameImage}.jpg`
-        });
+        // get camera screenshot
+        const screenshot = await getImage(
+            'http://192.168.1.129:3000/?action=snapshot',
+            fileNameScreenshot,
+            'jpg'
+        );
 
-        // create embed
+        // get thumbnail screnshot if exists
+        const thumbnail = await getImage(
+            `${url}/plugin/prusaslicerthumbnails/thumbnail/${fileName}.png`,
+            fileNameThumbnail,
+            'png'
+        );
+
+        // create embeds
         const imageEmbed = new EmbedBuilder()
-            .setTitle(`LlamaPrint-3000`)
+            //.setTitle(`LlamaPrint-3000`)
+            // using google.com since discord js requires a url to attach multiple images unfortunately
+            .setURL('https://google.com')
             .addFields(
                 {
                     name: 'Job Information',
@@ -73,22 +83,61 @@ export default {
                     inline: true
                 }
             )
-            .setImage(`attachment://${fileNameImage}.jpg`)
+            .setImage(`attachment://${fileNameScreenshot}.jpg`)
             .setFooter({
                 text: interaction.client.user.username,
                 iconURL: interaction.client.user.displayAvatarURL()
             })
             .setTimestamp();
 
-        await interaction.reply({
-            embeds: [imageEmbed],
-            files: [imageAttachment],
-            ephemeral: !options.getBoolean('visible')
-        });
+        const thumbnailEmbed = new EmbedBuilder()
+            .setURL('https://google.com')
+            .setImage(`attachment://${fileNameThumbnail}.png`);
+
+        // send embed
+        if (typeof thumbnail === 'undefined' || thumbnail === null) {
+            await interaction.reply({
+                embeds: [imageEmbed],
+                files: [screenshot],
+                ephemeral: !options.getBoolean('visible')
+            });
+        } else {
+            await interaction.reply({
+                embeds: [imageEmbed, thumbnailEmbed],
+                files: [screenshot, thumbnail],
+                ephemeral: !options.getBoolean('visible')
+            });
+        }
         return;
     }
 };
 
+// convert seconds to time (hh:mm:ss)
 function secondsToTime(seconds) {
     return new Date(seconds * 1000).toISOString().substring(11, 19);
+}
+
+async function getImage(url, fileName, fileType) {
+    // get image
+    try {
+        const image = await axios.get(url, {
+            responseType: 'arraybuffer'
+        });
+
+        // convert to buffer
+        const buffer = Buffer.from(image.data, 'base64');
+
+        // convert to image attachment
+        const imageAttachment = new AttachmentBuilder(buffer, {
+            name: `${fileName}.${fileType}}`
+        });
+
+        // return Attachment
+        return imageAttachment;
+    } catch (err) {
+        console.log(err);
+    }
+
+    // if nothing return undefined
+    return undefined;
 }
