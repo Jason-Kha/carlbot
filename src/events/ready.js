@@ -37,10 +37,10 @@ export default {
             // initial status update
             UpdateBotStatus();
 
-            // update status every 5 seconds
+            // update status every 30 seconds
             setInterval(async () => {
                 UpdateBotStatus();
-            }, 5 * 1000);
+            }, 60 * 1000);
 
             // update random status every half an hour
             setInterval(async () => {
@@ -51,13 +51,13 @@ export default {
         // start intervals
         startSetInterval(API);
 
-        // update presence every 5 seconds
+        // update presence every 60 seconds
         setInterval(() => {
             client.user.setPresence({
                 activities: [activityStatus],
                 status: 'online'
             });
-        }, 5 * 1000);
+        }, 60 * 1000);
 
         return;
     }
