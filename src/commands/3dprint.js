@@ -46,7 +46,7 @@ export default {
         const fileNameRaw = job_result.data.job.file.name;
         const fileName = fileNameRaw.substring(0, fileNameRaw.lastIndexOf('.'));
         const fileNameScreenshot = fileName.replace(/ /g, '_');
-        const fileNameThumbnail = fileName.concat('-thumbnail');
+        const fileNameThumbnail = fileName.replace(/ /g, '_').concat('-thumbnail');
         const progress = job_result.data.progress.completion.toFixed(2);
         const est_print_time = secondsToTime(job_result.data.job.estimatedPrintTime);
         const print_time = secondsToTime(job_result.data.progress.printTime);
