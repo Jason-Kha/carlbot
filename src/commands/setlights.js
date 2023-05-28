@@ -70,23 +70,32 @@ export default {
             return;
         }
 
-        // light client
         const client = new Client();
-        const oldState = await (await client.getDevice({ host: '192.168.1.248' })).getInfo();
+        let oldState;
+        let newState;
 
-        // Look for bulb, log to console, and turn them on
-        client.startDiscovery().on('bulb-new', async (bulb) => {
-            await bulb.lighting.setLightState({
-                on_off: powerstate,
-                hue: hue,
-                saturation: saturation,
-                color_temp: 0,
-                brightness: brightness,
-                transition_period: transition_period
+        // light client
+        try {
+            // oldState = await (await client.getDevice({ host: '192.168.1.248' })).getInfo();
+
+            // Look for bulb, log to console, and turn them on
+            client.startDiscovery().on('bulb-new', async (bulb) => {
+                await bulb.lighting.setLightState({
+                    on_off: powerstate,
+                    hue: hue,
+                    saturation: saturation,
+                    color_temp: 0,
+                    brightness: brightness,
+                    transition_period: transition_period
+                });
             });
-        });
 
-        const newState = await (await client.getDevice({ host: '192.168.1.248' })).getInfo();
+            newState = await (await client.getDevice({ host: '192.168.1.248' })).getInfo();
+            console.log(test);
+            console.log(newState);
+        } catch (error) {
+            console.log(error);
+        }
 
         var newData = JSON.parse(JSON.stringify(newState.lighting));
 
@@ -97,10 +106,10 @@ export default {
         const embed = new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('YoshLamp Info')
-            .setDescription('YoshLamp Status')
+            // .setDescription('YoshLamp Status')
             .setThumbnail(interaction.client.user.avatarURL({ format: 'png', size: 4096 }))
             .addFields(
-                { name: 'Description', value: `ur messin with my lights >:o` },
+                { name: 'Description', value: `Lights updated` },
                 { name: '\u200B', value: '\u200B' },
                 {
                     name: 'Hue',
