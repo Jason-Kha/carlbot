@@ -71,17 +71,26 @@ async function IsPrinting() {
     // check print
     // get data
     const url = 'http://192.168.1.129:4000';
+    let state;
     let print_result;
     try {
         print_result = await axios.get(url + '/api/printer?history=false', {
             headers: { 'X-Api-Key': API }
         });
+        state = print_result.data.state.flags.printing;
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            return false;
+        } else if (error.request) {
+            // The client never received a response, and the request was never left
+            console.log(error.request);
+        } else {
+            // Anything else
+            console.log(error.request);
+        }
     }
 
     // get printer state
-    const state = print_result.data.state.flags.printing;
 
     return state;
 }
