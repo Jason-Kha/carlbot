@@ -29,15 +29,19 @@ export default {
     execute(client) {
         console.log(`Ready! Logged in as ${client.user.tag}`);
 
-        // bot initially chilling
-        activityStatus = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
+        // update bot status
+        UpdateBotStatus();
+        client.user.setPresence({
+            activities: [activityStatus],
+            status: 'online'
+        });
 
         // start intervals
         async function startSetInterval() {
             // initial status update
             UpdateBotStatus();
 
-            // update status every 30 seconds
+            // update status every 60 seconds
             setInterval(async () => {
                 UpdateBotStatus();
             }, 60 * 1000);
@@ -49,7 +53,7 @@ export default {
         }
 
         // start intervals
-        startSetInterval(API);
+        startSetInterval();
 
         // update presence every 60 seconds
         setInterval(() => {
@@ -89,19 +93,23 @@ async function GetPrintPercentage() {
     let progress = 0;
 
     try {
-        job_result = await axios.get(url + '/api/job', {
-            headers: { 'X-Api-Key': API }
-        });
-        progress = job_result.data.progress.completion.toFixed(2);
+        if (await IsPrinting()) {
+            console.log('wa');
+            job_result = await axios.get(url + '/api/job', {
+                headers: { 'X-Api-Key': API }
+            });
+            progress = job_result.data.progress.completion.toFixed(2);
+        }
     } catch (error) {
         console.log(error);
+        progress = 0;
     }
 
     return progress;
 }
 
-function GetBotStatus() {
-    if (IsPrinting()) {
+async function GetBotStatus() {
+    if (await IsPrinting()) {
         bStatus = botStatus.Printing;
     } else {
         bStatus = botStatus.Idle;
