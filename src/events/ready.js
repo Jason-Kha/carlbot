@@ -86,16 +86,16 @@ async function GetPrintPercentage() {
     const url = 'http://192.168.1.129:4000';
 
     let job_result;
+    let progress = 0;
 
     try {
         job_result = await axios.get(url + '/api/job', {
             headers: { 'X-Api-Key': API }
         });
+        progress = job_result.data.progress.completion.toFixed(2);
     } catch (error) {
         console.log(error);
     }
-
-    const progress = job_result.data.progress.completion.toFixed(2);
 
     return progress;
 }
