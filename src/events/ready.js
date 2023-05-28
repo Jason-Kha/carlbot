@@ -67,9 +67,14 @@ async function IsPrinting() {
     // check print
     // get data
     const url = 'http://192.168.1.129:4000';
-    const print_result = await axios.get(url + '/api/printer?history=false', {
-        headers: { 'X-Api-Key': API }
-    });
+    let print_result;
+    try {
+        print_result = await axios.get(url + '/api/printer?history=false', {
+            headers: { 'X-Api-Key': API }
+        });
+    } catch (error) {
+        console.log(error);
+    }
 
     // get printer state
     const state = print_result.data.state.flags.printing;
@@ -79,9 +84,17 @@ async function IsPrinting() {
 
 async function GetPrintPercentage() {
     const url = 'http://192.168.1.129:4000';
-    const job_result = await axios.get(url + '/api/job', {
-        headers: { 'X-Api-Key': API }
-    });
+
+    let job_result;
+
+    try {
+        job_result = await axios.get(url + '/api/job', {
+            headers: { 'X-Api-Key': API }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
     const progress = job_result.data.progress.completion.toFixed(2);
 
     return progress;
