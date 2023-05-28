@@ -26,31 +26,15 @@ let requestNewStatus = true;
 export default {
     name: 'ready',
     once: true,
-    execute(client) {
+    async execute(client) {
         console.log(`Ready! Logged in as ${client.user.tag}`);
 
         // update bot status
-        UpdateBotStatus();
+        await UpdateBotStatus();
         client.user.setPresence({
             activities: [activityStatus],
             status: 'online'
         });
-
-        // start intervals
-        async function startSetInterval() {
-            // initial status update
-            UpdateBotStatus();
-
-            // update status every 60 seconds
-            setInterval(async () => {
-                UpdateBotStatus();
-            }, 60 * 1000);
-
-            // update random status every half an hour
-            setInterval(async () => {
-                requestNewStatus = true;
-            }, 1800 * 1000);
-        }
 
         // start intervals
         startSetInterval();
@@ -95,6 +79,22 @@ async function IsPrinting() {
     return state;
 }
 
+// start intervals
+async function startSetInterval() {
+    // initial status update
+    UpdateBotStatus();
+
+    // update status every 60 seconds
+    setInterval(async () => {
+        UpdateBotStatus();
+    }, 5 * 1000);
+
+    // update random status every half an hour
+    setInterval(async () => {
+        requestNewStatus = true;
+    }, 5 * 1000);
+}
+
 async function GetPrintPercentage() {
     const url = 'http://192.168.1.129:4000';
 
@@ -128,7 +128,7 @@ async function GetBotStatus() {
 }
 
 async function UpdateBotStatus() {
-    switch (GetBotStatus()) {
+    switch (await GetBotStatus()) {
         case 'idle':
             if (requestNewStatus) {
                 activityStatus = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
@@ -146,4 +146,6 @@ async function UpdateBotStatus() {
             activityStatus = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
             break;
     }
+    console.log(await GetBotStatus());
+    console.log(activityStatus);
 }
