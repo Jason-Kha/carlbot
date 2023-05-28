@@ -103,7 +103,6 @@ async function GetPrintPercentage() {
 
     try {
         if (await IsPrinting()) {
-            console.log('wa');
             job_result = await axios.get(url + '/api/job', {
                 headers: { 'X-Api-Key': API }
             });
@@ -146,6 +145,4 @@ async function UpdateBotStatus() {
             activityStatus = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
             break;
     }
-    console.log(await GetBotStatus());
-    console.log(activityStatus);
 }
