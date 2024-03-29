@@ -117,8 +117,12 @@ async function GetPrintPercentage() {
 }
 
 async function GetBotStatus() {
-    if (await IsPrinting()) {
-        bStatus = botStatus.Printing;
+    if (!(API.length === 0)) {
+        if (await IsPrinting()) {
+            bStatus = botStatus.Printing;
+        } else {
+            bStatus = botStatus.Idle;
+        }
     } else {
         bStatus = botStatus.Idle;
     }
