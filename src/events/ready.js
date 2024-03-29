@@ -13,10 +13,12 @@ const botStatus = {
 
 const randomStatuses = [
     { name: `Factorio`, type: ActivityType.Playing },
-    { name: `Factorio`, type: ActivityType.Streaming },
-    { name: `Factorio`, type: ActivityType.Watching },
-    { name: `Factorio`, type: ActivityType.Listening },
-    { name: `Factorio`, type: ActivityType.Competing }
+    { name: `Stardew Valley`, type: ActivityType.Playing },
+    { name: `Morrowind`, type: ActivityType.Playing },
+    // { name: `Factorio`, type: ActivityType.Streaming },
+    // { name: `Factorio`, type: ActivityType.Watching },
+    // { name: `Factorio`, type: ActivityType.Listening },
+    // { name: `Factorio`, type: ActivityType.Competing }
 ];
 
 let bStatus = botStatus.Idle;
