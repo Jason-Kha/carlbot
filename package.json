@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/Jason-Kha/carlbot#readme",
     "dependencies": {
+        "@discordjs/voice": "^0.18.0",
         "axios": "^1.6.8",
         "discord.js": "^14.3.0",
         "openai": "^4.30.0",
