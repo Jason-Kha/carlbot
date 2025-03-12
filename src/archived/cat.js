@@ -15,6 +15,5 @@ export default {
 
         // show cat
         await interaction.reply({ content: 'Here is cat:', files: [result.data[0].url] });
-        return;
     }
 };

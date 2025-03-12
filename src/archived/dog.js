@@ -10,6 +10,5 @@ export default {
 
         // show dog
         await interaction.reply({ content: 'Here is dog:', files: [result.data.message] });
-        return;
     }
 };
