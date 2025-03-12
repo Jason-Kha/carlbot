@@ -7,7 +7,7 @@ export default {
 
         // gamer moment
         if (content.toLowerCase().includes('gamer')) {
-            await message.reply('gamer');
+            await message.reply('gamer?');
         }
 
         // letter reactions
