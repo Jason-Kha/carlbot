@@ -15,6 +15,7 @@ const randomStatuses = [
     { name: `Factorio`, type: ActivityType.Playing },
     { name: `Stardew Valley`, type: ActivityType.Playing },
     { name: `Morrowind`, type: ActivityType.Playing },
+    { name: `Vintage Story`, type: ActivityType.Playing }
     // { name: `Factorio`, type: ActivityType.Streaming },
     // { name: `Factorio`, type: ActivityType.Watching },
     // { name: `Factorio`, type: ActivityType.Listening },
@@ -39,7 +40,7 @@ export default {
         });
 
         // start intervals
-        startSetInterval();
+        await startSetInterval();
 
         // update presence every 60 seconds
         setInterval(() => {
@@ -49,7 +50,7 @@ export default {
             });
         }, 60 * 1000);
 
-        return;
+
     }
 };
 
@@ -84,11 +85,11 @@ async function IsPrinting() {
 // start intervals
 async function startSetInterval() {
     // initial status update
-    UpdateBotStatus();
+    await UpdateBotStatus();
 
     // update status every 60 seconds
     setInterval(async () => {
-        UpdateBotStatus();
+        await UpdateBotStatus();
     }, 5 * 1000);
 
     // update random status every half an hour
