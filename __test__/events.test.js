@@ -17,6 +17,6 @@ describe('events', () => {
 
     it('should be called with reply on gamer', async () => {
         messageCreate.execute(message);
-        expect(message.reply).toHaveBeenCalledWith('gamer');
+        expect(message.reply).toHaveBeenCalledWith('gamer?');
     });
 });
