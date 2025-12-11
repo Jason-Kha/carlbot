@@ -1,33 +1,27 @@
 name: CICD
 
-# Run on every push to the master branch
-on:
-    push:
-        branches:
-            - master
-            - CICD
+on: [push]
 
 # Run jobs
 jobs:
     build:
         runs-on: ubuntu-latest
-
         strategy:
             matrix:
-                node-version: [14.x]
+                node-version: [22.x]
 
         steps:
-            - uses: actions/checkout@v2
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v6
               with:
                   node-version: ${{ matrix.node-version }}
+            - uses: actions/checkout@v6
             - name: npm install and test
               env:
-                  PREFIX: ${{ secrets.PREFIX }}
-                  DISCORDTOKEN: ${{ secrets.DISCORDTOKEN }}
-                  MONGOURI: ${{ secrets.MONGOURI }}
-                  WATCH2GETHER: ${{ secrets.WATCH2GETHER }}
+                  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+                  DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+                  GUILD_ID: ${{ secrets.GUILD_ID }}
+                  OLLAMA_HOST: ${{ secrets.OLAMMA_HOST }}
               run: |
                   npm ci
                   npm test
