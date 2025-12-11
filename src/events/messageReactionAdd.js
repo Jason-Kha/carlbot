@@ -14,9 +14,10 @@ export default {
             //messageReaction.message.react('😎');
         }
 
-        if (messageReaction.emoji.name === 'Carl') {
-            messageReaction.message.react(messageReaction.message.guild.emojis.cache.get('676493897932734494'))
+        if (messageReaction.emoji.name === 'Carl' && messageReaction.message.guildId === '552720436367065098') {
+            await messageReaction.message.react(messageReaction.message.guild.emojis.cache.get('676493897932734494'))
         }
+
 
         return;
     }
