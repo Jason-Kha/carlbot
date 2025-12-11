@@ -5,6 +5,10 @@ export default {
 
         const content = message.content;
 
+        if(content.includes('<:Carl:676493897932734494>')) {
+            await message.react(message.guild.emojis.cache.get('676493897932734494'))
+        }
+
         // gamer moment
         if (content.toLowerCase().includes('gamer')) {
             await message.reply('gamer?');
@@ -18,6 +22,12 @@ export default {
         ) {
             await message.react('🇬');
         }
+
+        // proof
+        if (content.toLowerCase().includes('proof?')) {
+            await message.reply('ur moms house');
+        }
+
         return;
     }
 };
