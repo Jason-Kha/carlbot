@@ -1,14 +1,14 @@
-import {SlashCommandBuilder, ChannelType, EmbedBuilder} from 'discord.js';
-import { Ollama } from 'ollama'
+import {ChannelType, EmbedBuilder, SlashCommandBuilder} from 'discord.js';
+import {Ollama} from 'ollama'
 
-import { config } from 'dotenv';
 const OLLAMA_HOST = process.env.OLLAMA_HOST;
+
 export default {
     data: new SlashCommandBuilder()
         .setName('ollama')
-        .setDescription('ollama text')
+        .setDescription('Generate text using a prompt')
         .addStringOption((option) =>
-                option.setName('prompt').setDescription('text prompt').setRequired(true)
+            option.setName('prompt').setDescription('Text prompt to pass into Ollama').setRequired(true)
         )
     ,
     async execute(interaction) {
@@ -26,16 +26,16 @@ export default {
 
         // ollama response
         const ollamaResponse = await ollama.chat({
-          model: 'llama3.1:8b',
-          messages: [{ role: 'user', content: prompt }],
-          stream: true,
+            model: 'llama3.1:8b',
+            messages: [{role: 'user', content: prompt}],
+            stream: true,
         });
 
         // build ai response
         let response = ''
         for await (const part of ollamaResponse) {
             response += part.message.content;
-            process.stdout.write(part.message.content)
+            // process.stdout.write(part.message.content)
         }
 
         // create embed
@@ -48,9 +48,6 @@ export default {
             })
             .setTimestamp();
 
-        await interaction.editReply({ embeds: [textEmbed] });
-
-        return;
-
+        await interaction.editReply({embeds: [textEmbed]});
     }
 };
