@@ -1,5 +1,7 @@
+import {Events} from "discord.js";
+
 export default {
-    name: 'messageCreate',
+    name: Events.MessageCreate,
     async execute(message) {
         if (message.author.bot) return;
 

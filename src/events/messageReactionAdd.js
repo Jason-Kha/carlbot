@@ -1,5 +1,7 @@
+import {Events} from "discord.js";
+
 export default {
-    name: 'messageReactionAdd',
+    name: Events.MessageReactionAdd,
     async execute(messageReaction, user) {
         if (user.bot) return;
 

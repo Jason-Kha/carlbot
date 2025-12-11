@@ -1,4 +1,4 @@
-import { ActivityType } from 'discord.js';
+import { ActivityType, Events } from 'discord.js';
 import { config } from 'dotenv';
 
 // dotenv setup
@@ -19,7 +19,7 @@ let activityStatus;
 let requestNewStatus = true;
 
 export default {
-    name: 'ready',
+    name: Events.ClientReady,
     once: true,
     async execute(client) {
         console.log(`Ready! Logged in as ${client.user.tag}`);
