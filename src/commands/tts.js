@@ -12,12 +12,12 @@ import * as GoogleTTS from "google-tts-api";
 export default {
     data: new SlashCommandBuilder()
         .setName('tts')
-        .setDescription('tts')
+        .setDescription('Have this bot use text to speech in the voice channel')
         .addStringOption((option) =>
-            option.setName('message').setDescription('tts message').setRequired(true)
+            option.setName('message').setDescription('Text to speech message').setRequired(true)
         )
         .addChannelOption(option => option.setName('channel')
-            .setDescription("The channel to join")
+            .setDescription("The voice channel to join")
             .addChannelTypes(ChannelType.GuildVoice))
     ,
     async execute(interaction) {
