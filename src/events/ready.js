@@ -1,15 +1,8 @@
 import { ActivityType } from 'discord.js';
-import axios from 'axios';
 import { config } from 'dotenv';
 
 // dotenv setup
 config();
-const API = process.env.OCTOPRINT;
-
-const botStatus = {
-    Idle: 'idle',
-    Printing: 'printing'
-};
 
 const randomStatuses = [
     { name: `Factorio`, type: ActivityType.Playing },
@@ -22,7 +15,6 @@ const randomStatuses = [
     // { name: `Factorio`, type: ActivityType.Competing }
 ];
 
-let bStatus = botStatus.Idle;
 let activityStatus;
 let requestNewStatus = true;
 
@@ -53,3 +45,23 @@ export default {
 
     }
 };
+
+// start intervals
+async function startSetInterval() {
+    // initial status update
+    await UpdateBotStatus();
+
+    // update status every 60 seconds
+    setInterval(async () => {
+        await UpdateBotStatus();
+    }, 5 * 1000);
+
+    // update random status every half an hour
+    setInterval(async () => {
+        requestNewStatus = true;
+    }, 5 * 1000);
+}
+
+async function UpdateBotStatus() {
+    activityStatus = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
+}
