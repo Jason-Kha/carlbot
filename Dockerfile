@@ -8,4 +8,6 @@ RUN npm install
 
 COPY . /usr/src/bot
 
+CMD ["npm", "run", "commands"]
+
 CMD ["npm", "run", "prod"]
