@@ -7,14 +7,15 @@ import {
     StreamType,
     VoiceConnectionStatus
 } from "@discordjs/voice";
-import * as GoogleTTS from "google-tts-api";
+
+import discordTTS from 'discord-tts'
 
 export default {
     data: new SlashCommandBuilder()
         .setName('tts')
         .setDescription('Have this bot use text to speech in the voice channel')
         .addStringOption((option) =>
-            option.setName('message').setDescription('Text to speech message').setRequired(true)
+            option.setName('message').setDescription('Text to speech message').setMaxLength(200).setRequired(true)
         )
         .addChannelOption(option => option.setName('channel')
             .setDescription("The voice channel to join")
@@ -43,8 +44,8 @@ export default {
 
         // TTS message
         const message = interaction.options.getString('message');
-        const audioResource = GoogleTTS.getAllAudioUrls(message);
-        const resource = createAudioResource(audioResource[0].url, {inputType: StreamType.Arbitrary});
+        const stream = discordTTS.getVoiceStream(message);
+        const resource = createAudioResource(stream);
 
         // channel connection configuration
         const connection = joinVoiceChannel({
