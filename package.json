@@ -4,8 +4,9 @@
     "description": "Discord Bot",
     "main": "index.js",
     "scripts": {
-        "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
         "dev": "nodemon ./src/index.js",
+        "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
+        "prod": "node ./src/index.js",
         "commands": "node ./src/deploy-commands.js"
     },
     "repository": {
@@ -20,13 +21,11 @@
     "homepage": "https://github.com/Jason-Kha/carlbot#readme",
     "dependencies": {
         "@discordjs/voice": "^0.18.0",
-        "axios": "^1.6.8",
         "discord.js": "^14.3.0",
         "google-tts-api": "^2.0.2",
         "ollama": "^0.6.3",
         "openai": "^4.30.0",
-        "staticmaps": "^1.10.0",
-        "tplink-smarthome-api": "^4.2.0"
+        "staticmaps": "^1.10.0"
     },
     "devDependencies": {
         "dotenv": "^16.0.2",
