@@ -10,6 +10,7 @@ export default {
                 .setDescription('Amount of sides the die has')
                 .setRequired(true)
                 .setMaxValue(9999999999)
+                .setMinValue(2)
         ),
     async execute(interaction) {
         // get options
