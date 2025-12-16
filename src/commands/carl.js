@@ -41,7 +41,7 @@ export default {
         let response = '';
         for await (const part of ollamaResponse) {
             response += part.message.content;
-            process.stdout.write(part.message.content)
+            // process.stdout.write(part.message.content)
         }
 
         // create embed
